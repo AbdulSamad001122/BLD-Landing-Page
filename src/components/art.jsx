@@ -109,6 +109,85 @@ export function LogoBarArt() {
   )
 }
 
+/* ---------- VSL-style art ---------- */
+
+function arc(cx, cy, r1, r2, a0, a1) {
+  const p = (r, a) => [cx + r * Math.cos(a), cy + r * Math.sin(a)]
+  const [x1, y1] = p(r2, a0), [x2, y2] = p(r2, a1), [x3, y3] = p(r1, a1), [x4, y4] = p(r1, a0)
+  return `M${x1} ${y1}A${r2} ${r2} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${r1} ${r1} 0 0 0 ${x4} ${y4}Z`
+}
+
+/**
+ * The vault from the Big Logo VSL: a round door with four tumblers and a segmented ring.
+ * When it scrolls into view the ring fills and the tumblers click into place one by one.
+ */
+export function VaultArt({ className = '' }) {
+  const [ref, inView] = useInView({ threshold: 0.35 })
+  const segs = 12
+  const gap = 0.06
+  return (
+    <svg ref={ref} className={`vault ${inView ? 'is-in' : ''} ${className}`} viewBox="0 0 400 400" aria-hidden="true">
+      {Array.from({ length: segs }, (_, i) => {
+        const a0 = (i / segs) * Math.PI * 2 - Math.PI / 2 + gap
+        const a1 = ((i + 1) / segs) * Math.PI * 2 - Math.PI / 2 - gap
+        return <path key={i} className="vault__seg" style={{ '--i': i }} d={arc(200, 200, 162, 190, a0, a1)} />
+      })}
+      <circle cx="200" cy="200" r="150" className="vault__body" />
+      <circle cx="200" cy="200" r="122" className="vault__door" />
+      {Array.from({ length: 24 }, (_, i) => {
+        const a = (i / 24) * Math.PI * 2
+        return <circle key={i} cx={200 + 112 * Math.cos(a)} cy={200 + 112 * Math.sin(a)} r="2.6" className="vault__rivet" />
+      })}
+      <rect x="34" y="138" width="34" height="20" rx="7" className="vault__bolt" />
+      <rect x="34" y="240" width="34" height="20" rx="7" className="vault__bolt" />
+      <rect x="332" y="138" width="34" height="20" rx="7" className="vault__bolt" />
+      <rect x="332" y="240" width="34" height="20" rx="7" className="vault__bolt" />
+      <rect x="112" y="150" width="176" height="9" rx="4.5" className="vault__bar" />
+      {[134, 178, 222, 266].map((x, i) => (
+        <g key={x} className="vault__tumbler" style={{ '--i': i, transformOrigin: `${x}px 196px` }}>
+          <rect x={x - 3} y="158" width="6" height="10" className="vault__bar" />
+          <circle cx={x} cy="196" r="19" className="vault__dial" />
+          <circle cx={x} cy="196" r="4" className="vault__pin" />
+          {Array.from({ length: 8 }, (_, k) => {
+            const a = (k / 8) * Math.PI * 2
+            return <line key={k} x1={x + 11 * Math.cos(a)} y1={196 + 11 * Math.sin(a)} x2={x + 15 * Math.cos(a)} y2={196 + 15 * Math.sin(a)} className="vault__tick" />
+          })}
+        </g>
+      ))}
+      <g className="vault__handle">
+        {[0, 60, 120].map((r) => (
+          <rect key={r} x="196" y="232" width="8" height="52" rx="4" transform={`rotate(${r} 200 258)`} />
+        ))}
+      </g>
+    </svg>
+  )
+}
+
+/** Red and slate gears turning together (VSL style). */
+export function GearsArt() {
+  const gear = (r, teeth, cls) => {
+    const pts = []
+    for (let i = 0; i < teeth * 2; i++) {
+      const a = (i / (teeth * 2)) * Math.PI * 2
+      const rr = i % 2 ? r : r + r * 0.16
+      pts.push(`${rr * Math.cos(a)},${rr * Math.sin(a)}`)
+    }
+    return (
+      <g className={cls}>
+        <polygon points={pts.join(' ')} />
+        <circle r={r * 0.62} className="gear__hole" />
+        <circle r={r * 0.22} className="gear__hub" />
+      </g>
+    )
+  }
+  return (
+    <svg className="gears" viewBox="0 0 240 200" aria-hidden="true">
+      <g transform="translate(92 112)">{gear(62, 14, 'gear gear--red')}</g>
+      <g transform="translate(184 50)">{gear(36, 10, 'gear gear--slate')}</g>
+    </svg>
+  )
+}
+
 /** Curved divider drawn at the top of a section in the previous section's colour. */
 export function Wave({ color, flip = false }) {
   return (

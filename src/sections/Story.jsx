@@ -1,5 +1,5 @@
 import { CtaButton, Reveal } from '../components/primitives.jsx'
-import { CycleArt, GrowthArt, Icon, IconBadge, MazeArt, TypingDots, Wave } from '../components/art.jsx'
+import { CycleArt, GearsArt, GrowthArt, Icon, IconBadge, MazeArt, TypingDots, Wave } from '../components/art.jsx'
 import { story } from '../copy.jsx'
 
 const obstacleIcons = ['team', 'megaphone', 'gears']
@@ -12,7 +12,7 @@ export default function Story() {
     <>
       {/* Band 1: the pain, as a chat thread (white with soft colour blobs) */}
       <section className="section band band--pain">
-        <Wave color="var(--tint-blue)" />
+        <Wave color="var(--navy)" />
         <span className="blob blob--blue" aria-hidden="true" />
         <span className="blob blob--red" aria-hidden="true" />
         <div className="container container--narrow band__inner">
@@ -45,6 +45,7 @@ export default function Story() {
 
       {/* Band 2: year after year (light grey with a faint grid) */}
       <section className="section band band--grid">
+        <Wave color="var(--white)" />
         <div className="container story__chapters">
           <Reveal className="chapter">
             <Reveal variant="zoom"><CycleArt /></Reveal>
@@ -69,7 +70,7 @@ export default function Story() {
 
       {/* Band 3: the turn + the Velocity case file (soft blue gradient) */}
       <section className="section band band--case">
-        <Wave color="var(--light)" />
+        <Wave color="var(--navy)" />
         <div className="container container--narrow band__inner">
           <Reveal variant="zoom" className="bigq">
             <span className="bigq__mark" aria-hidden="true">?</span>
@@ -98,7 +99,10 @@ export default function Story() {
               ))}
             </ul>
 
-            <Reveal as="p" className="casefile__wall">{story.body3}</Reveal>
+            <div className="casefile__levers">
+              <GearsArt />
+              <Reveal as="p" variant="right" className="casefile__wall">{story.body3}</Reveal>
+            </div>
 
             <div className="casefile__result">
               <GrowthArt />

@@ -12,7 +12,7 @@ export default function Method() {
 
   return (
     <section className="section section--navy method">
-      <Wave color="var(--tint-mint)" />
+      <Wave color="var(--sky-tint)" />
       <span className="method__grid" aria-hidden="true" />
       <div className="container container--narrow center">
         <Reveal as="h2" className="h2 h2--onDark">{method.headline}</Reveal>
@@ -59,7 +59,7 @@ export default function Method() {
               <path d="M0 0L10 5L0 10z" fill="#2E74B5" />
             </marker>
             <linearGradient id="loopGrad" x1="1" x2="0" y1="0" y2="0">
-              <stop offset="0" stopColor="#1F9E6E" />
+              <stop offset="0" stopColor="#8CA0BB" />
               <stop offset="1" stopColor="#2E74B5" />
             </linearGradient>
           </defs>

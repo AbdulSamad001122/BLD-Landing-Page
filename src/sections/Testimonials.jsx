@@ -13,7 +13,7 @@ export function QuoteMark() {
 export default function Testimonials() {
   return (
     <section className="section testimonials band--dots">
-      <Wave color="var(--white)" />
+      <Wave color="var(--sky-tint)" />
       <div className="container testimonials__grid">
         {testimonials.map((t, i) => (
           <Reveal as="figure" key={t.name} delay={i * 150} variant={i ? 'right' : 'left'} className="tcard">

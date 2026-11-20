@@ -1,17 +1,18 @@
 import { CtaButton, Reveal } from '../components/primitives.jsx'
-import { IconBadge, Wave } from '../components/art.jsx'
+import { IconBadge, VaultArt, Wave } from '../components/art.jsx'
 import { quizShows } from '../copy.jsx'
 
 // One icon per item, matched to what that item covers.
 const itemIcons = ['target', 'leak', 'wrongfix', 'clipboard', 'calculator', 'lighten', 'question']
-const tones = ['blue', 'red', 'blue', 'green', 'red', 'green', 'blue']
+const tones = ['blue', 'red', 'blue', 'red', 'blue', 'red', 'blue']
 
 export default function QuizShows() {
   return (
     <section className="section quizshows">
-      <Wave color="var(--light)" />
+      <Wave color="var(--white)" />
       <div className="container">
         <Reveal as="h2" className="h2 h2--blue center quizshows__title">{quizShows.headline}</Reveal>
+        <VaultArt className="quizshows__vault" />
         <ol className="shows">
           {quizShows.items.map((it, i) => (
             <Reveal as="li" key={i} delay={(i % 2) * 120} variant="pop" className={`show show--${tones[i]}`}>

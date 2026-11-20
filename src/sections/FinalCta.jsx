@@ -6,7 +6,7 @@ export default function FinalCta() {
   const [seen, question, take] = finalCta.body
   return (
     <section className="section section--navy final" id="final-cta">
-      <Wave color="var(--tint-blue)" />
+      <Wave color="var(--navy)" />
       <div className="hero__glow" aria-hidden="true" />
       <span className="orb orb--a" aria-hidden="true" />
       <span className="orb orb--b" aria-hidden="true" />

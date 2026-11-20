@@ -26,7 +26,7 @@ export default function Bio() {
               <p>{founder}</p>
             </Reveal>
             <Reveal delay={140} variant="pop" className="cred">
-              <IconBadge name="handshake" tone="green" />
+              <IconBadge name="handshake" tone="red" />
               <p>{closed}</p>
             </Reveal>
           </div>
