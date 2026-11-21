@@ -163,6 +163,46 @@ export function VaultArt({ className = '' }) {
   )
 }
 
+/** Four VSL tumbler dials on a bar; they click into place one by one when seen. */
+export function TumblerRow() {
+  const [ref, inView] = useInView({ threshold: 0.5 })
+  return (
+    <svg ref={ref} className={`tumblers ${inView ? 'is-in' : ''}`} viewBox="0 0 200 64" aria-hidden="true">
+      <rect x="10" y="6" width="180" height="7" rx="3.5" className="vault__bar" />
+      {[34, 78, 122, 166].map((x, i) => (
+        <g key={x} className="vault__tumbler" style={{ '--i': i, transformOrigin: `${x}px 40px` }}>
+          <rect x={x - 2.5} y="12" width="5" height="8" className="vault__bar" />
+          <circle cx={x} cy="40" r="17" className="vault__dial" />
+          <circle cx={x} cy="40" r="3.5" className="vault__pin" />
+          {Array.from({ length: 8 }, (_, k) => {
+            const a = (k / 8) * Math.PI * 2
+            return <line key={k} x1={x + 10 * Math.cos(a)} y1={40 + 10 * Math.sin(a)} x2={x + 13.5 * Math.cos(a)} y2={40 + 13.5 * Math.sin(a)} className="vault__tick" />
+          })}
+        </g>
+      ))}
+    </svg>
+  )
+}
+
+/** Circular photo inside the VSL's segmented ring; the ring fills in when seen. */
+export function RingPhoto({ src, alt }) {
+  const [ref, inView] = useInView({ threshold: 0.35 })
+  const segs = 16
+  const gap = 0.05
+  return (
+    <div ref={ref} className={`ringphoto ${inView ? 'is-in' : ''}`}>
+      <svg className="ringphoto__ring" viewBox="0 0 400 400" aria-hidden="true">
+        {Array.from({ length: segs }, (_, i) => {
+          const a0 = (i / segs) * Math.PI * 2 - Math.PI / 2 + gap
+          const a1 = ((i + 1) / segs) * Math.PI * 2 - Math.PI / 2 - gap
+          return <path key={i} className="ringphoto__seg" style={{ '--i': i }} d={arc(200, 200, 176, 198, a0, a1)} />
+        })}
+      </svg>
+      <img src={src} alt={alt} width="800" height="800" loading="lazy" />
+    </div>
+  )
+}
+
 /** Red and slate gears turning together (VSL style). */
 export function GearsArt() {
   const gear = (r, teeth, cls) => {

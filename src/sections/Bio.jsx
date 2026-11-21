@@ -1,5 +1,5 @@
 import { Reveal } from '../components/primitives.jsx'
-import { IconBadge, Wave } from '../components/art.jsx'
+import { IconBadge, RingPhoto, Wave } from '../components/art.jsx'
 import { bio } from '../copy.jsx'
 
 export default function Bio() {
@@ -12,9 +12,7 @@ export default function Bio() {
       <span className="bio__shape bio__shape--b" aria-hidden="true" />
       <div className="container bio__grid">
         <Reveal variant="left" className="bio__media">
-          <div className="bio__frame">
-            <img src={bio.photo} alt="David “Ledge” Ledgerwood" width="800" height="800" loading="lazy" />
-          </div>
+          <RingPhoto src={bio.photo} alt="David “Ledge” Ledgerwood" />
         </Reveal>
 
         <div className="bio__copy">

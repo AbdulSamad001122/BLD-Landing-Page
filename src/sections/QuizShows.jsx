@@ -1,5 +1,5 @@
 import { CtaButton, Reveal } from '../components/primitives.jsx'
-import { IconBadge, VaultArt, Wave } from '../components/art.jsx'
+import { IconBadge, TumblerRow, VaultArt, Wave } from '../components/art.jsx'
 import { quizShows } from '../copy.jsx'
 
 // One icon per item, matched to what that item covers.
@@ -24,6 +24,8 @@ export default function QuizShows() {
                 </strong>{' '}
                 <span className="show__text">{it.text}</span>
               </p>
+              {/* Item 2 names the VSL's four tumblers: attention, sales cycle, contracting/procurement, cash flow/delivery */}
+              {i === 1 && <TumblerRow />}
             </Reveal>
           ))}
         </ol>

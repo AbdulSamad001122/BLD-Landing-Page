@@ -210,10 +210,6 @@ a { color: inherit; }
 @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 .hero__glow { animation: glow 7s ease-in-out infinite alternate; }
 @keyframes glow { from { opacity: .75; } to { opacity: 1; } }
-.hero__skyline rect { transform-origin: bottom; transform-box: fill-box; animation: grow 1.4s cubic-bezier(.2, .7, .2, 1) both; }
-.hero__skyline rect:nth-child(3n) { animation-delay: .15s; }
-.hero__skyline rect:nth-child(3n+1) { animation-delay: .3s; }
-@keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
 /* CTA: soft pulse ring + shine sweep */
 .btn { position: relative; overflow: hidden; isolation: isolate; }
@@ -283,8 +279,6 @@ a { color: inherit; }
 /* bio punch line underline grows */
 .bio__punch::before { transform-origin: left; transform: scaleX(0); transition: transform .8s ease .4s; }
 .bio__contrast.is-in .bio__punch::before { transform: scaleX(1); }
-.bio__frame img { transition: transform .5s ease; }
-.bio__frame:hover img { transform: translate(-6px, -6px); }
 
 /* final: logo bar fills slot by slot */
 .logobar__slot { transition: background .4s, border-color .4s, transform .4s; }
@@ -324,7 +318,6 @@ a { color: inherit; }
     radial-gradient(60% 50% at 50% 0%, rgba(46, 116, 181, .35), transparent 70%),
     radial-gradient(30% 30% at 85% 75%, rgba(203, 32, 38, .14), transparent 70%);
 }
-.hero__skyline { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 62%; fill: rgba(255, 255, 255, .04); pointer-events: none; }
 .hero__inner { position: relative; max-width: 1100px; text-align: center; }
 .hero__lead { font-size: var(--fs-body); line-height: 1.55; color: #e6ecf4; font-weight: 700; max-width: 800px; margin: 6px auto 10px; }
 .hero__lead, .hero__sub, .hero__under, .h2 { text-wrap: balance; }
@@ -639,16 +632,6 @@ a { color: inherit; }
 .bio__shape--b { width: 300px; height: 300px; left: -120px; bottom: -60px; border: 40px solid rgba(203, 32, 38, .05); }
 .bio__grid { position: relative; display: grid; grid-template-columns: 420px minmax(0, 1fr); gap: 72px; align-items: start; }
 .bio__media { position: sticky; top: calc(var(--topbar-h) + 32px); }
-.bio__frame { position: relative; border-radius: 22px; }
-.bio__frame::before {
-  content: ''; position: absolute; inset: 22px -22px -22px 22px; border-radius: 22px;
-  background: var(--navy); z-index: 0;
-}
-.bio__frame::after {
-  content: ''; position: absolute; top: -14px; left: -14px; width: 90px; height: 90px; border-radius: 18px;
-  background: repeating-linear-gradient(45deg, var(--red) 0 3px, transparent 3px 10px); opacity: .5; z-index: 0;
-}
-.bio__frame img { position: relative; z-index: 1; border-radius: 22px; width: 100%; aspect-ratio: 1; object-fit: cover; }
 
 .bio__intro { font-family: var(--font-head); font-size: var(--fs-sub); line-height: 1.3; margin-bottom: 28px; font-weight: 700; }
 .bio__intro strong { font-weight: 700; color: var(--navy); }
@@ -778,7 +761,6 @@ a { color: inherit; }
   .bubble { font-size: var(--fs-body); padding: 14px 18px; max-width: 92%; }
   .story__promise { padding: 28px 20px; }
   .stage { padding: 26px 22px; }
-  .bio__frame::before { inset: 14px -14px -14px 14px; }
   .bio__intro { font-size: var(--fs-sub); font-weight: 700; }
   .show { padding: 20px 18px; }
   .casefile { padding: 40px 20px 28px; border-radius: 22px; }
@@ -813,7 +795,7 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .cycleart__ring, .art--maze.is-in .maze__dot, .hero__inner > *, .hero__glow, .hero__skyline rect, .btn::after, .btn--lg,
+  .cycleart__ring, .art--maze.is-in .maze__dot, .hero__inner > *, .hero__glow, .btn::after, .btn--lg,
   .logos__item, .typing i, .blob, .orb, .bio__shape--a, .method__grid, .win__card--a, .win__card--b, .win__spark, .bigq__mark,
   .jump, .stages__loop path, .logobar__slot { animation: none !important; }
   .bubble__text, .logobar__slot.is-filled { opacity: 1; transition: none; }
@@ -876,4 +858,26 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .vault__tumbler, .vault__handle, .gear--red, .gear--slate { animation: none !important; }
   .vault__seg, .vault__dial { transition: none; }
+}
+
+/* VSL extras: tumbler row, ring photo, red box on the doc-italic word in the Method heading */
+.tumblers { display: block; width: 100%; max-width: 230px; height: auto; margin-top: 4px; }
+.tumblers .vault__dial { fill: #e3eaf3; stroke: var(--sky); }
+.tumblers .vault__tick { stroke: var(--slate); }
+.tumblers.is-in .vault__tumbler .vault__dial { fill: var(--navy); stroke: var(--navy); }
+.tumblers.is-in .vault__tumbler .vault__tick { stroke: var(--sky-soft); }
+
+.ringphoto { position: relative; width: 100%; max-width: 420px; aspect-ratio: 1; margin: 0 auto; }
+.ringphoto__ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: spinslow 60s linear infinite; }
+.ringphoto__seg { fill: rgba(140, 160, 187, .3); transition: fill .35s ease; transition-delay: calc(var(--i) * 70ms + .2s); }
+.ringphoto.is-in .ringphoto__seg { fill: var(--navy); }
+.ringphoto.is-in .ringphoto__seg:nth-child(4n) { fill: var(--red); }
+.ringphoto img { position: absolute; inset: 9%; width: 82%; height: 82%; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 8px var(--white), 0 24px 50px rgba(16, 32, 52, .25); transition: transform .5s ease; }
+.ringphoto:hover img { transform: scale(1.03); }
+
+.method .h2 em { background: var(--red); color: var(--white); padding: 0 .18em; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ringphoto__ring { animation: none; }
+  .ringphoto__seg { transition: none; }
 }
